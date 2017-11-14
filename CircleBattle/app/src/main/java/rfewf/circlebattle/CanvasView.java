@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Franck on 13.11.2017.
  */
@@ -21,13 +23,24 @@ class CanvasView extends View implements ICanvasView{
     static int width;
     static int height;
     Canvas canvas;
+    static int MAX_CIRCLES = 10;
+    ArrayList<EnemyCircle> circles;
 
     CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initWidthAndHeight(context);
         initMainCircle();
+        initEnemyCircles();
         initPaint();
+    }
 
+    void initEnemyCircles() {
+                circles = new ArrayList<EnemyCircle>();
+                for (int i = 0; i < MAX_CIRCLES; i++) {
+                        EnemyCircle circle;
+                        circle = EnemyCircle.getRandomCircle();
+                        circles.add(circle);
+                }
     }
 
 
@@ -56,6 +69,9 @@ class CanvasView extends View implements ICanvasView{
         super.onDraw(canvasFromMethod);
         canvas = canvasFromMethod;
         drawCircle(mainCircle);
+        for (EnemyCircle circle : circles) {
+            drawCircle(circle);
+        }
     }
 
 
