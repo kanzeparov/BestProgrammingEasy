@@ -4,7 +4,7 @@ package rfewf.circlebattle;
  * Created by Franck on 13.11.2017.
  */
 
-public class SimpleCircle {
+class SimpleCircle {
 
     int x;
     int y;

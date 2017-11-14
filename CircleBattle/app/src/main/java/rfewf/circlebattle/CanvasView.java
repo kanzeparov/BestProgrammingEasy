@@ -15,22 +15,24 @@ import android.view.WindowManager;
  * Created by Franck on 13.11.2017.
  */
 
-public class CanvasView extends View {
+class CanvasView extends View implements ICanvasView{
     Paint paint;
     MainCircle mainCircle;
     static int width;
     static int height;
+    Canvas canvas;
 
     CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        initWidthAndHeight(context);
         initMainCircle();
         initPaint();
-        initWidthAndHeight(context);
+
     }
 
 
     void initMainCircle() {
-        mainCircle = new MainCircle(100, 200);
+        mainCircle = new MainCircle(width/2, height/2);
     }
 
     void initPaint() {
@@ -52,8 +54,11 @@ public class CanvasView extends View {
     @Override
     protected void onDraw(Canvas canvasFromMethod) {
         super.onDraw(canvasFromMethod);
-        canvasFromMethod.drawCircle(mainCircle.getX(), mainCircle.getY(), mainCircle.getRadius(), paint);
+        canvas = canvasFromMethod;
+        drawCircle(mainCircle);
     }
+
+
 
 
     @Override
@@ -66,5 +71,9 @@ public class CanvasView extends View {
                 invalidate();//ОБНОВЛЕНИЕ
                 return true;
             }
-
+    //Для того, чтобы в этот метод подавать и другие круги
+    @Override
+    public void drawCircle(SimpleCircle circle) {
+        canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
+    }
 }

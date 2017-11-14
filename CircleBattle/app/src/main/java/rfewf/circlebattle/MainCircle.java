@@ -10,7 +10,7 @@ public class MainCircle extends SimpleCircle {
     static int INTI_RADIUS = 50;
     static int MAIN_SPEED = 30;
 
-    public MainCircle(int x, int y) {
+    MainCircle(int x, int y) {
         super(x, y, INTI_RADIUS);
         setColor(Color.BLACK);
     }
