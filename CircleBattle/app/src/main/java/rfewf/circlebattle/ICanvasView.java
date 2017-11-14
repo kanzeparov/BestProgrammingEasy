@@ -6,4 +6,5 @@ package rfewf.circlebattle;
 
 public interface ICanvasView {
      void drawCircle(SimpleCircle circle);
+         void redraw();
 }

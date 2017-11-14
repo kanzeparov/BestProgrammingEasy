@@ -80,7 +80,10 @@ class CanvasView extends View implements ICanvasView{
         }
 
     }
-    private void calculateAndSetCirclesColor() {
+
+
+
+    void calculateAndSetCirclesColor() {
                 for (EnemyCircle circle : circles) {
                     Log.d("mylog", circle.getColor() + "bef");
                         circle.setEnemyOrFoodColorDependsOn(mainCircle);
@@ -104,8 +107,26 @@ class CanvasView extends View implements ICanvasView{
     void onTouchEvent(int x, int y) {
         mainCircle.moveMainCircleWhenTouchAt(x, y);
                 moveCircles();
+        checkCollision();
+            }
+    public void redraw() {
+                invalidate();
             }
 
+
+     void checkCollision() {
+                SimpleCircle circleForDel = null;
+               for (EnemyCircle circle : circles) {
+                        if (mainCircle.isIntersect(circle)) {
+                                gameEnd("YOU LOSE!");
+                            }
+                   }
+            }
+      void gameEnd(String text) {
+                mainCircle.initRadius();
+                initEnemyCircles();
+                redraw();
+            }
      void moveCircles() {
                 for (EnemyCircle circle : circles) {
                         circle.moveOneStep();

@@ -37,6 +37,17 @@ class EnemyCircle extends SimpleCircle {
     public void moveOneStep() {
                 x += dx;
                 y += dy;
+        checkBounds();
+            }
+
+
+    private void checkBounds() {
+               if (x > CanvasView.width || x < 0) {
+                        dx = -dx;
+                    }
+               if (y > CanvasView.height || y < 0) {
+                        dy = -dy;
+                    }
             }
 
      boolean isSmallerThan(SimpleCircle circle) {

@@ -7,11 +7,11 @@ import android.graphics.Color;
  */
 
 public class MainCircle extends SimpleCircle {
-    static int INTI_RADIUS = 50;
+    static int INIT_RADIUS = 50;
     static int MAIN_SPEED = 30;
 
     MainCircle(int x, int y) {
-        super(x, y, INTI_RADIUS);
+        super(x, y, INIT_RADIUS);
         setColor(Color.BLUE);
     }
 
@@ -21,4 +21,8 @@ public class MainCircle extends SimpleCircle {
                 x += dx;
                 y += dy;
     }
+
+        public void initRadius() {
+        radius = INIT_RADIUS;
+           }
 }
