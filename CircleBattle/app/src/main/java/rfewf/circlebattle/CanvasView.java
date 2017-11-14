@@ -36,15 +36,18 @@ class CanvasView extends View implements ICanvasView{
         initPaint();
     }
 
-    void initEnemyCircles() {
-                circles = new ArrayList<EnemyCircle>();
-                for (int i = 0; i < MAX_CIRCLES; i++) {
-                        EnemyCircle circle;
-                        circle = EnemyCircle.getRandomCircle();
-                        circles.add(circle);
-                }
-        calculateAndSetCirclesColor();
-    }
+   void initEnemyCircles() {
+       SimpleCircle mainCircleArea = mainCircle.getCircleArea();
+       circles = new ArrayList<EnemyCircle>();
+       for (int i = 0; i < MAX_CIRCLES; i++) {
+           EnemyCircle circle;
+           do {
+               circle = EnemyCircle.getRandomCircle();
+           } while (circle.isIntersect(mainCircleArea)); //до тех пор пока не будет пересекаться
+           circles.add(circle);
+       }
+       calculateAndSetCirclesColor();
+   }
 
 
     void initMainCircle() {
