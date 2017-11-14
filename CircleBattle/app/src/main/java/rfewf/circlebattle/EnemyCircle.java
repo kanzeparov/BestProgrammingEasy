@@ -34,6 +34,10 @@ class EnemyCircle extends SimpleCircle {
                     }
             }
 
+    public void moveOneStep() {
+                x += dx;
+                y += dy;
+            }
 
      boolean isSmallerThan(SimpleCircle circle) {
                 if (radius < circle.radius) {

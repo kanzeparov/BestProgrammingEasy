@@ -95,11 +95,22 @@ class CanvasView extends View implements ICanvasView{
                 int x = (int) event.getX();
                 int y = (int) event.getY();
                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    mainCircle.moveMainCircleWhenTouchAt(x, y);
+                    onTouchEvent(x, y);
                     }
                 invalidate();//ОБНОВЛЕНИЕ
                 return true;
             }
+
+    void onTouchEvent(int x, int y) {
+        mainCircle.moveMainCircleWhenTouchAt(x, y);
+                moveCircles();
+            }
+
+     void moveCircles() {
+                for (EnemyCircle circle : circles) {
+                        circle.moveOneStep();
+                }
+    }
     //Для того, чтобы в этот метод подавать и другие круги
     @Override
     public void drawCircle(SimpleCircle circle) {
