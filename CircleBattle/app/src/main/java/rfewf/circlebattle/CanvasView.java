@@ -6,10 +6,12 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,7 @@ class CanvasView extends View implements ICanvasView{
                         circle = EnemyCircle.getRandomCircle();
                         circles.add(circle);
                 }
+        calculateAndSetCirclesColor();
     }
 
 
@@ -72,8 +75,15 @@ class CanvasView extends View implements ICanvasView{
         for (EnemyCircle circle : circles) {
             drawCircle(circle);
         }
-    }
 
+    }
+    private void calculateAndSetCirclesColor() {
+                for (EnemyCircle circle : circles) {
+                    Log.d("mylog", circle.getColor() + "bef");
+                        circle.setEnemyOrFoodColorDependsOn(mainCircle);
+                    Log.d("mylog", circle.getColor() + "after");
+                    }
+    }
 
 
 
@@ -90,6 +100,7 @@ class CanvasView extends View implements ICanvasView{
     //Для того, чтобы в этот метод подавать и другие круги
     @Override
     public void drawCircle(SimpleCircle circle) {
+        paint.setColor(circle.getColor());
         canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
     }
 }

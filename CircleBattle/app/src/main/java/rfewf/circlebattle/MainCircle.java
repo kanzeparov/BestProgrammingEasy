@@ -12,7 +12,7 @@ public class MainCircle extends SimpleCircle {
 
     MainCircle(int x, int y) {
         super(x, y, INTI_RADIUS);
-        setColor(Color.BLACK);
+        setColor(Color.BLUE);
     }
 
         void moveMainCircleWhenTouchAt(int x1, int y1) {

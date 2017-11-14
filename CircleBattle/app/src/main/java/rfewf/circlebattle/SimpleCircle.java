@@ -18,7 +18,7 @@ class SimpleCircle {
     }
 
     void setColor(int colorFromMethod) {
-        colorFromMethod = color;
+        color = colorFromMethod;
     }
     int getX() { return x; }
     int getY() {

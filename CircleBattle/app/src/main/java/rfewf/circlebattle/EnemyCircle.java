@@ -1,6 +1,7 @@
 package rfewf.circlebattle;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.Random;
 
@@ -22,6 +23,23 @@ class EnemyCircle extends SimpleCircle {
                 super(x, y, radius);
                 dx = dxFromConstructor;
                 dy = dyFromConstructor;
+            }
+
+    void setEnemyOrFoodColorDependsOn(MainCircle mainCircle) {
+        Log.d("mylog", mainCircle.radius  + "setEn" + radius);
+                if (isSmallerThan(mainCircle)) {
+                        setColor(FOOD_COLOR);
+                    } else {
+                        setColor(ENEMY_COLOR);
+                    }
+            }
+
+
+     boolean isSmallerThan(SimpleCircle circle) {
+                if (radius < circle.radius) {
+                        return true;
+                    }
+                return false;
             }
 
     static EnemyCircle getRandomCircle() {
