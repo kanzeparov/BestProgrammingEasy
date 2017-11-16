@@ -34,14 +34,14 @@ class EnemyCircle extends SimpleCircle {
                     }
             }
 
-    public void moveOneStep() {
+     void moveOneStep() {
                 x += dx;
                 y += dy;
         checkBounds();
             }
 
 
-    private void checkBounds() {
+     void checkBounds() {
                if (x > CanvasView.width || x < 0) {
                         dx = -dx;
                     }

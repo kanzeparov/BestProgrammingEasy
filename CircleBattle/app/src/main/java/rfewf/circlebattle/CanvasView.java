@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,6 +28,7 @@ class CanvasView extends View implements ICanvasView{
     Canvas canvas;
     static int MAX_CIRCLES = 10;
     ArrayList<EnemyCircle> circles;
+    private Toast toast;
 
     CanvasView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -115,18 +117,44 @@ class CanvasView extends View implements ICanvasView{
 
 
      void checkCollision() {
-                SimpleCircle circleForDel = null;
-               for (EnemyCircle circle : circles) {
-                        if (mainCircle.isIntersect(circle)) {
-                                gameEnd("YOU LOSE!");
-                            }
-                   }
-            }
+         SimpleCircle circleForDel = null;
+         for (EnemyCircle circle : circles) {
+             if (mainCircle.isIntersect(circle)) {
+                                 if (circle.isSmallerThan(mainCircle)) {
+                                         mainCircle.growRadius(circle);
+                                         circleForDel = circle;
+                                         calculateAndSetCirclesColor();
+                                         break;
+                                     } else {
+                                         gameEnd("YOU LOSE!");
+                                         return;
+                                     }
+             }
+         }
+                 if (circleForDel != null) {
+                         circles.remove(circleForDel);
+                     }
+                 if (circles.isEmpty()) {
+                         gameEnd("YOU WIN!");
+                     }
+     }
       void gameEnd(String text) {
+        showMessage(text);
                 mainCircle.initRadius();
                 initEnemyCircles();
                 redraw();
             }
+
+    @Override
+     public void showMessage(String text) {
+               if (toast != null) {
+                        toast.cancel();
+                    }
+                toast = Toast.makeText(getContext(), text, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+           }
+
      void moveCircles() {
                 for (EnemyCircle circle : circles) {
                         circle.moveOneStep();
